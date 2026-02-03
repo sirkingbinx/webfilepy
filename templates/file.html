@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>File - {{ filename }}</title>
+        <style>
+            html, body {
+                margin: 0;
+                overflow: hidden;
+            }
+
+            #metadata {
+                position: absolute;
+                height: 50px;
+                top: 0;
+                left: 10;
+                right: 10;
+
+                display: flex;
+                justify-content: right; 
+                align-items: center; 
+                width: calc(100% - 20px);
+                gap: 10px;
+
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            #metadata #filename {
+                width: 100%;
+                text-align: left;
+            }
+
+            #metadata a {
+                padding: 2.5px;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-family: Arial, Helvetica, sans-serif;
+                border: 1px solid #000;
+                background-color: #f8f8f8;
+                color: #000;
+                text-decoration: none;
+            }
+
+            #metadata a:hover {
+                padding: 2.5px;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-family: Arial, Helvetica, sans-serif;
+                border: 1px solid #3a3a3a;
+                background-color: #dfdfdf;
+                cursor: pointer;
+                color: #000;
+                text-decoration: none;
+            }
+
+            #editor {
+                position: absolute;
+                left: 10;
+                right: 10;
+                top: 50;
+                bottom: 10;
+
+                resize: none;
+            }
+        </style>
+    </head>
+
+    <div id="metadata">
+        <h2 id="filename">path/to/{{ filename }}</h2>
+        <a id="raw" href="{{ pagelink }}?raw=true">Raw</button>
+        <a id="download" href="{{ pagelink }}?download=true">Download</button>
+    </div>
+
+    <div id="content">
+        <textarea id="editor">{{ filecontent }}</textarea>
+    </div>
+</html>
