@@ -6,8 +6,12 @@ server = Flask(__name__)
 @server.route('/', defaults={'path': ''})
 @server.route('/<path:path>')
 def view_file(path):
-    if not pathlib.Path(path).exists():
+    realpath = pathlib.Path(path)
+    if not realpath.exists():
         return Response("404 Not Found", status=404, mimetype="text/plain")
+    
+    if path == "" or realpath.is_dir():
+        return render_template("directory.html", dirname=f"/{path}")
     
     try:
         with open(path, "r") as file:
