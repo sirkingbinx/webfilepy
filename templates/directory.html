@@ -8,6 +8,28 @@
                 overflow: hidden;
             }
 
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+                position: absolute;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+
             #metadata {
                 position: absolute;
                 height: 50px;
@@ -52,14 +74,43 @@
                 text-decoration: none;
             }
 
-            #editor {
+            #content {
                 position: absolute;
                 left: 10;
                 right: 10;
                 top: 50;
-                bottom: 10;
+                bottom: 10px;
 
                 resize: none;
+                overflow-y: auto;
+            }
+
+            a:hover {
+                cursor: pointer;
+            }
+
+            .back {
+                color: rgb(204, 39, 39);
+            }
+
+            .back:hover {
+                color: rgb(247, 27, 27);
+            }
+
+            .dir {
+                color: rgb(39, 39, 204);
+            }
+
+            .dir:hover {
+                color: rgb(43, 43, 228);
+            }
+
+            .file {
+                color: rgb(0, 0, 0);
+            }
+
+            .file:hover {
+                color: rgb(63, 63, 63);
             }
         </style>
     </head>
@@ -74,10 +125,22 @@
                 <th>Name</th>
                 <th>Last Updated</th>
             </tr>
+            {% for item in items %}
             <tr>
-                <th>a.py</th>
-                <th>2024-11-11</th>
+                <th>
+                    <a href="{{ item['link'] }}"
+                    {% if item.dir %}
+                    class="dir"
+                    {% elif item.back %}
+                    class="back"
+                    {% else %}
+                    class="file"
+                    {% endif %}
+                    >{{ item["name"] }}</a>
+                </th>
+                <th>{{ item["modified"] }}</th>
             </tr>
+            {% endfor %}
         </table>
     </div>
 </html>
