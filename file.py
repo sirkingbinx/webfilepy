@@ -6,6 +6,7 @@ import pathlib
 from config import Config
 
 def show_file(filepath: pathlib.Path):
+    back_url = "/" if filepath.parent == pathlib.Path(Config.root_folder) else os.path.join("/", str(filepath.parent))
     try:
         with open(os.path.join(Config.root_folder, str(filepath)), "r") as file:
             content = "\n".join(file.readlines())
@@ -22,7 +23,7 @@ def show_file(filepath: pathlib.Path):
             except ValueError:
                 print("Bad value for raw/download param, ignoring..")
             
-            return flask.render_template("file.html", filename=str(filepath), filecontent=content)
+            return flask.render_template("file.html", back_url=back_url, filename=str(filepath), filecontent=content)
     except UnicodeDecodeError:
         try:
             raw = flask.request.args.get("raw", False, bool)
@@ -33,4 +34,4 @@ def show_file(filepath: pathlib.Path):
         except ValueError:
             print("Bad value for raw/download param, ignoring..")
 
-        return flask.render_template("file.html", filename=str(filepath), filecontent="The file you're requesting isn't a text file, so we can't preview it here.")
+        return flask.render_template("file.html", back_url=back_url, filename=str(filepath), filecontent="The file you're requesting isn't a text file, so we can't preview it here.")

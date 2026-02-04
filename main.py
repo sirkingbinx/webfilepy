@@ -25,10 +25,6 @@ def view(path: str):
     # 404
     if not adv_path.exists():
         return flask.Response("404 Not Found", status=404, mimetype="text/plain")
-
-    # 403
-    # if not os.access(str(path), os.R_OK):
-    #     return flask.Response("403 Access Denied", status=403, mimetype="text/plain")
     
     if path == "" or adv_path.is_dir():
         # Directory
